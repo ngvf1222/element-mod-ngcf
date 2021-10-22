@@ -5,10 +5,10 @@ static int update(UPDATE_FUNC_ARGS);
 void Element::Element_H2()
 {
 	Identifier = "DEFAULT_PT_H2";
-	Name = "HYGN";
+	Name = "H";
 	Colour = PIXPACK(0x5070FF);
 	MenuVisible = 1;
-	MenuSection = SC_GAS;
+	MenuSection = SC_ATOM;
 	Enabled = 1;
 
 	Advection = 2.0f;
@@ -37,8 +37,8 @@ void Element::Element_H2()
 	LowPressureTransition = NT;
 	HighPressure = IPH;
 	HighPressureTransition = NT;
-	LowTemperature = ITL;
-	LowTemperatureTransition = NT;
+	LowTemperature = 20.28f;
+	LowTemperatureTransition = PT_HL;
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
 
