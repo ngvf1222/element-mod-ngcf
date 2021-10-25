@@ -80,6 +80,11 @@ int Element_FIRE_update(UPDATE_FUNC_ARGS)
 				parts[i].life = 0;
 				parts[i].ctype = PT_FIRE;
 			}
+			else if ((parts[i].tmp&0x6) == 6) {
+				sim->part_change_type(i, x, y, PT_DEUT);
+				parts[i].life = 0;
+				parts[i].ctype = PT_FIRE;
+			}
 			else if (parts[i].temp<625)
 			{
 				sim->part_change_type(i,x,y,PT_SMKE);

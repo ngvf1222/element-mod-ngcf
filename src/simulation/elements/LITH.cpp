@@ -6,10 +6,10 @@ static int graphics(GRAPHICS_FUNC_ARGS);
 void Element::Element_LITH()
 {
 	Identifier = "DEFAULT_PT_LITH";
-	Name = "LITH";
+	Name = "Li";
 	Colour = PIXPACK(0xB6AABF);
 	MenuVisible = 1;
-	MenuSection = SC_EXPLOSIVE;
+	MenuSection = SC_ATOM;
 	Enabled = 1;
 
 	Advection = 0.2f;
@@ -30,7 +30,7 @@ void Element::Element_LITH()
 	Weight = 17;
 
 	HeatConduct = 70;
-	Description = "Lithium. Reactive element that explodes on contact with water.";
+	Description = "Lithium.";
 
 	Properties = TYPE_PART | PROP_LIFE_DEC;
 

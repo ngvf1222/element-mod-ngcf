@@ -3,7 +3,7 @@
 void Element::Element_HS()
 {
 	Identifier = "DEFAULT_PT_HS";
-	Name = "H-S";
+	Name = "H-s";
 	Colour = PIXPACK(0x324ECE);
 	MenuVisible = 0;
 	MenuSection = SC_ATOM;
@@ -27,10 +27,10 @@ void Element::Element_HS()
 	Weight = 90;
 
 	DefaultProperties.temp = R_TEMP - 295.15f + 273.15f;
-	HeatConduct = 150;
+	HeatConduct = 251;
 	Description = "Solid Hydrogen.";
 
-	Properties = TYPE_PART;
+	Properties = TYPE_SOLID|PROP_CONDUCTS|PROP_LIFE_DEC;
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;

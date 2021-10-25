@@ -3,7 +3,7 @@
 void Element::Element_HL()
 {
 	Identifier = "DEFAULT_PT_HL";
-	Name = "H-L";
+	Name = "H-l";
 	Colour = PIXPACK(0x212FAF);
 	MenuVisible = 0;
 	MenuSection = SC_ATOM;
@@ -27,7 +27,7 @@ void Element::Element_HL()
 	Weight = 90;
 
 	DefaultProperties.temp = R_TEMP - 277.0f + 273.15f;
-	HeatConduct = 150;
+	HeatConduct = 251;
 	Description = "Liquid Hydrogen.";
 
 	Properties = TYPE_PART;

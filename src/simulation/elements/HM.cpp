@@ -2,12 +2,12 @@
 
 static int update(UPDATE_FUNC_ARGS);
 
-void Element::Element_H2()
+void Element::Element_HM()
 {
-	Identifier = "DEFAULT_PT_H2";
-	Name = "H";
-	Colour = PIXPACK(0x5070FF);
-	MenuVisible = 1;
+	Identifier = "DEFAULT_PT_HM";
+	Name = "H-";
+	Colour = PIXPACK(0x7891FF);
+	MenuVisible = 0;
 	MenuSection = SC_ATOM;
 	Enabled = 1;
 
@@ -29,7 +29,7 @@ void Element::Element_H2()
 	Weight = 1;
 
 	HeatConduct = 251;
-	Description = "Hydrogen.";
+	Description = "Hydride.";
 
 	Properties = TYPE_GAS;
 
@@ -37,8 +37,8 @@ void Element::Element_H2()
 	LowPressureTransition = NT;
 	HighPressure = IPH;
 	HighPressureTransition = NT;
-	LowTemperature = 20.28f;
-	LowTemperatureTransition = PT_HL;
+	LowTemperature = ITL;
+	LowTemperatureTransition = NT;
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
 

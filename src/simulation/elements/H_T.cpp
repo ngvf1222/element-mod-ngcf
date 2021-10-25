@@ -2,12 +2,12 @@
 
 static int update(UPDATE_FUNC_ARGS);
 
-void Element::Element_H2()
+void Element::Element_H_T()
 {
-	Identifier = "DEFAULT_PT_H2";
-	Name = "H";
-	Colour = PIXPACK(0x5070FF);
-	MenuVisible = 1;
+	Identifier = "DEFAULT_PT_H_T";
+	Name = "H_T";
+	Colour = PIXPACK(0x1F2D69);
+	MenuVisible = 0;
 	MenuSection = SC_ATOM;
 	Enabled = 1;
 
@@ -29,7 +29,7 @@ void Element::Element_H2()
 	Weight = 1;
 
 	HeatConduct = 251;
-	Description = "Hydrogen.";
+	Description = "Tritium-Hydrogen.";
 
 	Properties = TYPE_GAS;
 
@@ -37,8 +37,8 @@ void Element::Element_H2()
 	LowPressureTransition = NT;
 	HighPressure = IPH;
 	HighPressureTransition = NT;
-	LowTemperature = 20.28f;
-	LowTemperatureTransition = PT_HL;
+	LowTemperature = ITL;
+	LowTemperatureTransition = NT;
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
 
@@ -75,10 +75,10 @@ static int update(UPDATE_FUNC_ARGS)
 							parts[ID(r)].temp=3473.0f;
 						else
 							parts[ID(r)].temp=2473.15f;
-						parts[ID(r)].tmp |= 1;
+						parts[ID(r)].tmp |= 4;
 						sim->create_part(i,x,y,PT_FIRE);
 						parts[i].temp += RNG::Ref().between(0, 99);
-						parts[i].tmp |= 1;
+						parts[i].tmp |= 4;
 						return 1;
 					}
 					else if ((rt==PT_PLSM && !(parts[ID(r)].tmp&4)) || (rt==PT_LAVA && parts[ID(r)].ctype != PT_BMTL))

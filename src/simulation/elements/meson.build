@@ -190,9 +190,13 @@ simulation_elem_ids = [
 	[ 'PTNM',   188 ],
 	[ 'VSNS',   189 ],
 	[ 'ROCK',   190 ],
-	[ 'LITH',   191 ],
-	[ 'HL',   192 ],
-	[ 'HS',   193 ],
+	[ 'HL',   191 ],
+	[ 'HS',   192 ],
+	[ 'HE',   193 ],
+	[ 'H_D',   194 ],
+	[ 'H_T',   195 ],
+	[ 'HM',   196 ],
+	[ 'LITH',   197 ],
 ]
 
 simulation_elem_src = []
