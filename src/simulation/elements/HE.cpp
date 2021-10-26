@@ -27,7 +27,7 @@ void Element::Element_HE()
 	Weight = 1;
 
 	HeatConduct = 251;
-	Description = "Helium.";
+	Description = "Helium. (Not Implemented)";
 
 	Properties = TYPE_GAS;
 

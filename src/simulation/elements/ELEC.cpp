@@ -111,9 +111,6 @@ static int update(UPDATE_FUNC_ARGS)
 					parts[ID(r)].tmp2 += 5;
 					parts[ID(r)].life = 1000;
 					break;
-				case PT_H2:
-					if (RNG::Ref().chance(1, 1))
-						sim->part_change_type(ID(r), x + rx, y + ry, PT_HM);
 				case PT_NONE: //seems to speed up ELEC even if it isn't used
 					break;
 				default:

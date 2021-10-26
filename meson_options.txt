@@ -109,7 +109,7 @@ option(
 option(
 	'build_font',
 	type: 'boolean',
-	value: true,
+	value: false,
 	description: 'Build the font editor'
 )
 option(

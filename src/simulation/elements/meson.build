@@ -195,9 +195,10 @@ simulation_elem_ids = [
 	[ 'HE',   193 ],
 	[ 'H_D',   194 ],
 	[ 'H_T',   195 ],
-	[ 'HM',   196 ],
-	[ 'HE3',   197 ],
-	[ 'LITH',   198 ],
+	[ 'HE3',   196 ],
+	[ 'LITH',   197 ],
+	[ 'UPQK',   198 ],
+	[ 'DNQK',   199 ],
 ]
 
 simulation_elem_src = []
