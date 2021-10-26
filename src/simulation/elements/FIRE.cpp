@@ -60,9 +60,9 @@ int Element_FIRE_update(UPDATE_FUNC_ARGS)
 	case PT_PLSM:
 		if (parts[i].life <=1)
 		{
-			if (parts[i].ctype == PT_NBLE)
+			if (parts[i].ctype == PT_HE3)
 			{
-				sim->part_change_type(i,x,y,PT_NBLE);
+				sim->part_change_type(i,x,y,PT_HE3);
 				parts[i].life = 0;
 			}
 			else if ((parts[i].tmp&0x3) == 3){

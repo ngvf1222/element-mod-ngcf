@@ -31,7 +31,7 @@ void Element::Element_H_T()
 	HeatConduct = 251;
 	Description = "Tritium-Hydrogen.";
 
-	Properties = TYPE_GAS;
+	Properties = TYPE_GAS|PROP_DEADLY;
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;
@@ -89,14 +89,21 @@ static int update(UPDATE_FUNC_ARGS)
 						return 1;
 					}
 				}
+				if (RNG::Ref().chance(1, 20000))
+				{
+					int j;
+					sim->create_part(-1, x + 1, y, PT_ELEC);
+					sim->part_change_type(i, x, y, PT_HE3);
+				}
 			}
+
 	if (parts[i].temp > 2273.15 && sim->pv[y/CELL][x/CELL] > 50.0f)
 	{
 		if (RNG::Ref().chance(1, 5))
 		{
 			int j;
 			float temp = parts[i].temp;
-			sim->create_part(i,x,y,PT_NBLE);
+			sim->create_part(i,x,y,PT_HE);
 			parts[i].tmp = 0x1;
 
 			j = sim->create_part(-3,x,y,PT_NEUT);

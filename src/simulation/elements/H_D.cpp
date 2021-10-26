@@ -96,7 +96,10 @@ static int update(UPDATE_FUNC_ARGS)
 		{
 			int j;
 			float temp = parts[i].temp;
-			sim->create_part(i,x,y,PT_NBLE);
+			if (RNG::Ref().chance(1, 5))
+				sim->create_part(i, x, y, PT_HE3);
+			else
+				sim->create_part(i, x, y, PT_H_T);
 			parts[i].tmp = 0x1;
 
 			j = sim->create_part(-3,x,y,PT_NEUT);
