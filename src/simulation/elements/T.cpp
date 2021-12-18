@@ -2,10 +2,10 @@
 
 static int update(UPDATE_FUNC_ARGS);
 
-void Element::Element_H_T()
+void Element::Element_T()
 {
-	Identifier = "DEFAULT_PT_H_T";
-	Name = "H_T";
+	Identifier = "DEFAULT_PT_T";
+	Name = "T";
 	Colour = PIXPACK(0x1F2D69);
 	MenuVisible = 0;
 	MenuSection = SC_ATOM;
@@ -29,7 +29,7 @@ void Element::Element_H_T()
 	Weight = 1;
 
 	HeatConduct = 251;
-	Description = "Tritium-Hydrogen.";
+	Description = "Tritium.";
 
 	Properties = TYPE_GAS|PROP_DEADLY;
 
@@ -89,7 +89,7 @@ static int update(UPDATE_FUNC_ARGS)
 						return 1;
 					}
 				}
-				if (RNG::Ref().chance(1, 20000))
+				if (RNG::Ref().chance(1, 25000))
 				{
 					int j;
 					sim->create_part(-1, x + 1, y, PT_ELEC);

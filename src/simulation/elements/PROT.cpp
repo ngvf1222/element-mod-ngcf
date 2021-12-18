@@ -80,6 +80,9 @@ static int update(UPDATE_FUNC_ARGS)
 			sim->kill_part(uID);
 		}
 		break;
+	case PT_LITH:
+		parts[i].type = PT_HE3;
+		break;
 	case PT_LCRY:
 		//Powered LCRY reaction: PROT->PHOT
 		if (parts[uID].life > 5 && RNG::Ref().chance(1, 10))

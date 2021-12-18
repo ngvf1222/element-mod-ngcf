@@ -2,10 +2,10 @@
 
 static int update(UPDATE_FUNC_ARGS);
 
-void Element::Element_H_D()
+void Element::Element_D()
 {
-	Identifier = "DEFAULT_PT_H_D";
-	Name = "H_D";
+	Identifier = "DEFAULT_PT_D";
+	Name = "D";
 	Colour = PIXPACK(0x364DB5);
 	MenuVisible = 0;
 	MenuSection = SC_ATOM;
@@ -29,7 +29,7 @@ void Element::Element_H_D()
 	Weight = 1;
 
 	HeatConduct = 251;
-	Description = "Deuterium-Hydrogen.";
+	Description = "Deuterium.";
 
 	Properties = TYPE_GAS;
 
@@ -99,7 +99,7 @@ static int update(UPDATE_FUNC_ARGS)
 			if (RNG::Ref().chance(1, 5))
 				sim->create_part(i, x, y, PT_HE3);
 			else
-				sim->create_part(i, x, y, PT_H_T);
+				sim->create_part(i, x, y, PT_T);
 			parts[i].tmp = 0x1;
 
 			j = sim->create_part(-3,x,y,PT_NEUT);

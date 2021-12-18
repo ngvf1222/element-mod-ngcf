@@ -27,7 +27,7 @@ void Element::Element_HE()
 	Weight = 1;
 
 	HeatConduct = 251;
-	Description = "Helium. (Not Implemented)";
+	Description = "Helium.";
 
 	Properties = TYPE_GAS;
 
@@ -35,8 +35,8 @@ void Element::Element_HE()
 	LowPressureTransition = NT;
 	HighPressure = IPH;
 	HighPressureTransition = NT;
-	LowTemperature = ITL;
-	LowTemperatureTransition = NT;
+	LowTemperature = 4.22f;
+	LowTemperatureTransition = PT_HEL;
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
 }

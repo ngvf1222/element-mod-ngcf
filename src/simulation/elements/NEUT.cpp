@@ -73,15 +73,15 @@ static int update(UPDATE_FUNC_ARGS)
 					break;
 				case PT_H2:
 					if (RNG::Ref().chance(1, 1))
-						sim->part_change_type(ID(r), x + rx, y + ry, PT_H_D);
+						sim->part_change_type(ID(r), x + rx, y + ry, PT_D);
 					break;
-				case PT_H_D:
+				case PT_D:
 					if (RNG::Ref().chance(1, 100))
-						sim->part_change_type(ID(r), x + rx, y + ry, PT_H_T);
+						sim->part_change_type(ID(r), x + rx, y + ry, PT_T);
 					break;
 				case PT_LITH:
 					if (RNG::Ref().chance(1, 1))
-						sim->part_change_type(ID(r), x + rx, y + ry, PT_H_T);
+						sim->part_change_type(ID(r), x + rx, y + ry, PT_T);
 					break;
 				case PT_PLUT:
 					if (RNG::Ref().chance(pressureFactor, 1000))
