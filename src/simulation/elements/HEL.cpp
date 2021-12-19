@@ -47,11 +47,8 @@ void Element::Element_HEL()
 
 static int update(UPDATE_FUNC_ARGS)
 {
-	if (parts[i].temp < 274.10 && sim->pv[y / CELL][x / CELL] > 25.0f)
-		sim->create_part(i, x, y, PT_HES);
-	return 0;
-
 	int r, rx, ry;
+
 	for (rx = -1; rx < 2; rx++)
 		for (ry = -1; ry < 2; ry++)
 			if (BOUNDS_CHECK && (rx || ry))
@@ -59,8 +56,12 @@ static int update(UPDATE_FUNC_ARGS)
 				r = pmap[y + ry][x + rx];
 				if (TYP(r) != PT_HEL && TYP(r) != PT_NONE)
 				{
-					sim->create_part(-1, x+rx, y+ry, PT_DUST);
+					parts[i].vy = -1;
 				}
-				return 1;
 			}
+
+	if (parts[i].temp < 274.10 && sim->pv[y / CELL][x / CELL] > 25.0f)
+		sim->part_change_type(i, x, y, PT_HES);
+
+	return 0;
 }

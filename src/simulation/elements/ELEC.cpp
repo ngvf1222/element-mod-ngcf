@@ -82,10 +82,6 @@ static int update(UPDATE_FUNC_ARGS)
 				case PT_LCRY:
 					parts[ID(r)].tmp2 = RNG::Ref().between(5, 9);
 					break;
-				case PT_PRON:
-					sim->part_change_type(i, x-rx, y-ry, PT_PHOT);
-					parts[ID(r)].life = 500;
-					break;
 				case PT_WATR:
 				case PT_DSTW:
 				case PT_SLTW:

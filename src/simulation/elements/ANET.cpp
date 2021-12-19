@@ -31,7 +31,7 @@ void Element::Element_ANET()
 	Weight = -1;
 
 	HeatConduct = 61;
-	Description = "Anti Electron Neutrino";
+	Description = "Anti Electron Neutrino.";
 
 	Properties = TYPE_ENERGY|PROP_LIFE_DEC|PROP_LIFE_KILL_DEC;
 

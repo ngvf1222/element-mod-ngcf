@@ -2463,6 +2463,11 @@ void Simulation::init_can_move()
 			can_move[PT_PROT][destinationType] = 2;
 			can_move[PT_GRVT][destinationType] = 2;
 		}
+		if (destinationType != PT_NONE)
+		{
+			can_move[PT_ANET][destinationType] = 2;
+			can_move[PT_ENET][destinationType] = 2;
+		}
 	}
 
 	//other special cases that weren't covered above

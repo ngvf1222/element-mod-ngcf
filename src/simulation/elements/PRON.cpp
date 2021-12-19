@@ -52,24 +52,26 @@ void Element::Element_PRON()
 
 static int update(UPDATE_FUNC_ARGS)
 {
-	int r, rt, rx, ry, nb, rrx, rry;
-	for (rx=-2; rx<=2; rx++)
-		for (ry=-2; ry<=2; ry++)
+	int r, rt, rx, ry, j;
+	for (rx = -2; rx <= 2; rx++)
+		for (ry = -2; ry <= 2; ry++)
 			if (BOUNDS_CHECK) {
-				r = pmap[y+ry][x+rx];
+				r = pmap[y + ry][x + rx];
 				if (!r)
-					r = sim->photons[y+ry][x+rx];
-				if (!r)
-					continue;
+					r = sim->photons[y + ry][x + rx];
+				if (!r) continue;
 				rt = TYP(r);
-				switch (rt)
-				{
+				switch (rt) {
 				case PT_ELEC:
-					sim->part_change_type(i, x - rx, y - ry, PT_PHOT);
-					parts[ID(r)].life = 500;
+
+
+					sim->part_change_type(i, x, y, PT_PHOT);
+					sim->part_change_type(ID(r), x + rx, y + ry, PT_PHOT);
+
 					break;
 				}
 			}
+
 	return 0;
 }
 
