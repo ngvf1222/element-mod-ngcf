@@ -202,7 +202,7 @@ simulation_elem_ids = [
 	[ 'HEL',   200 ],
 	[ 'HES',   201 ],
 	[ 'ENET',   202 ],
-	[ 'ANET',   203 ],
+	[ 'AENT',   203 ],
 	[ 'PRON',   204 ],
 ]
 

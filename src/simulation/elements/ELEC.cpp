@@ -101,6 +101,11 @@ static int update(UPDATE_FUNC_ARGS)
 					parts[ID(r)].ctype = 0;
 					sim->kill_part(i);
 					break;
+				case PT_PRON:
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					sim->kill_part(i);
+					break;
 				case PT_DEUT:
 					if(parts[ID(r)].life < 6000)
 						parts[ID(r)].life += 1;

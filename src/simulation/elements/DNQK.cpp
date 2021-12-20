@@ -1,5 +1,6 @@
 #include "simulation/ElementCommon.h"
 
+static int update(UPDATE_FUNC_ARGS);
 static int graphics(GRAPHICS_FUNC_ARGS);
 static void create(ELEMENT_CREATE_FUNC_ARGS);
 
@@ -30,7 +31,7 @@ void Element::Element_DNQK()
 	Weight = -1;
 
 	HeatConduct = 61;
-	Description = "Down Quark. (Not Implemented)";
+	Description = "Down Quark.";
 
 	Properties = TYPE_ENERGY|PROP_LIFE_DEC|PROP_LIFE_KILL_DEC;
 
@@ -43,10 +44,35 @@ void Element::Element_DNQK()
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
 
-	DefaultProperties.tmp = 1;
-
+	Update = &update;
 	Graphics = &graphics;
 	Create = &create;
+}
+
+static int update(UPDATE_FUNC_ARGS)
+{
+	int r, rt, rx, ry;
+	for (rx = -2; rx <= 2; rx++)
+		for (ry = -2; ry <= 2; ry++)
+			if (BOUNDS_CHECK) {
+				r = pmap[y + ry][x + rx];
+				if (!r)
+					r = sim->photons[y + ry][x + rx];
+				if (!r) continue;
+				rt = TYP(r);
+				switch (rt) {
+				case PT_UPQK:
+					if (parts[ID(r)].tmp == 2 && parts[i].tmp == 1)
+					{
+						sim->part_change_type(ID(r), x + rx, y + ry, PT_PROT);
+						parts[ID(r)].tmp = 0;
+						sim->kill_part(i);
+					}
+					break;
+				}
+			}
+
+	return 0;
 }
 
 static int graphics(GRAPHICS_FUNC_ARGS)
@@ -64,6 +90,7 @@ static void create(ELEMENT_CREATE_FUNC_ARGS)
 {
 	float a = RNG::Ref().between(0, 359) * 3.14159f / 180.0f;
 	sim->parts[i].life = 250 + RNG::Ref().between(0, 199);
+	sim->parts[i].tmp = RNG::Ref().between(1, 2);
 	sim->parts[i].vx = 2.0f*cosf(a);
 	sim->parts[i].vy = 2.0f*sinf(a);
 }

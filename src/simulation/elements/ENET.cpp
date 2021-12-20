@@ -8,7 +8,7 @@ void Element::Element_ENET()
 {
 	Identifier = "DEFAULT_PT_ENET";
 	Name = "ENET";
-	Colour = PIXPACK(0x00EE76);
+	Colour = PIXPACK(0xEBE95F);
 	MenuVisible = 1;
 	MenuSection = SC_NUCLEAR;
 	Enabled = 1;
@@ -19,7 +19,7 @@ void Element::Element_ENET()
 	Loss = 1.00f;
 	Collision = -.99f;
 	Gravity = 0.0f;
-	Diffusion = 0.00f;
+	Diffusion = 0.2;
 	HotAir = 0.000f * CFDS;
 	Falldown = 0;
 
@@ -53,22 +53,33 @@ void Element::Element_ENET()
 
 static int update(UPDATE_FUNC_ARGS)
 {
-	//at higher tmps they just go completely insane
-	if (parts[i].tmp >= 100)
-		parts[i].tmp = 100;
-	if (parts[i].tmp <= -100)
-		parts[i].tmp = -100;
+	int r, rt, rx, ry, j;
+	for (rx = -2; rx <= 2; rx++)
+		for (ry = -2; ry <= 2; ry++)
+			if (BOUNDS_CHECK) {
+				r = pmap[y + ry][x + rx];
+				if (!r)
+					r = sim->photons[y + ry][x + rx];
+				if (!r) continue;
+				rt = TYP(r);
+				switch (rt) {
+				case PT_AENT:
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					sim->kill_part(i);
+					break;
+				}
+			}
 
-	sim->gravmap[(y/CELL)*(XRES/CELL)+(x/CELL)] = 0.2f*parts[i].tmp;
 	return 0;
 }
 
 static int graphics(GRAPHICS_FUNC_ARGS)
 {
-	*firea = 5;
-	*firer = 0;
-	*fireg = 250;
-	*fireb = 170;
+	*firea = 50;
+	*firer = 170;
+	*fireg = 170;
+	*fireb = 0;
 
 	*pixel_mode |= FIRE_BLEND;
 	return 1;

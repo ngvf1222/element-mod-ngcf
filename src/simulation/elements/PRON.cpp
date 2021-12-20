@@ -8,7 +8,7 @@ void Element::Element_PRON()
 {
 	Identifier = "DEFAULT_PT_PRON";
 	Name = "PRON";
-	Colour = PIXPACK(0x6B8BAB);
+	Colour = PIXPACK(0x1E8FFF);
 	MenuVisible = 1;
 	MenuSection = SC_NUCLEAR;
 	Enabled = 1;
@@ -63,11 +63,9 @@ static int update(UPDATE_FUNC_ARGS)
 				rt = TYP(r);
 				switch (rt) {
 				case PT_ELEC:
-
-
-					sim->part_change_type(i, x, y, PT_PHOT);
-					sim->part_change_type(ID(r), x + rx, y + ry, PT_PHOT);
-
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					sim->kill_part(i);
 					break;
 				}
 			}
@@ -77,7 +75,7 @@ static int update(UPDATE_FUNC_ARGS)
 
 static int graphics(GRAPHICS_FUNC_ARGS)
 {
-	*firea = 50;
+	*firea = 70;
 	*firer = *colr;
 	*fireg = *colg;
 	*fireb = *colb;
