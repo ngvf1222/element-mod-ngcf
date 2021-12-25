@@ -12,17 +12,15 @@
 #include <cstdint>
 
 #ifdef WIN
-# ifndef NOMINMAX
-#  define NOMINMAX
-# endif
-# include <windows.h>
+#define NOMINMAX
+#include <windows.h>
 #else
-# include <unistd.h>
-# include <sys/stat.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #endif
 #ifdef MACOSX
-# include <mach-o/dyld.h>
-# include <errno.h>
+#include <mach-o/dyld.h>
+#include <errno.h>
 #endif
 
 #include "common/Platform.h"

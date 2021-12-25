@@ -1,11 +1,11 @@
 project('the-powder-toy', [ 'c', 'cpp' ], version: 'the.cake.is.a.lie', default_options: [
-	'cpp_std=c++17',
+	'cpp_std=c++11',
 ])
 
 to_array = generator(
-	executable('toarray', sources: 'data/ToArray.cpp', native: true),
+	import('python').find_installation('python3'),
 	output: [ '@PLAINNAME@.cpp', '@PLAINNAME@.h' ],
-	arguments: [ '@OUTPUT0@', '@OUTPUT1@', '@INPUT@', '@EXTRA_ARGS@' ]
+	arguments: [ join_paths(meson.current_source_dir(), 'to_array.py'), '@BUILD_DIR@', '@OUTPUT0@', '@OUTPUT1@', '@INPUT@', '@EXTRA_ARGS@' ]
 )
 
 cpp_compiler = meson.get_compiler('cpp')
@@ -53,7 +53,7 @@ endif
 
 uopt_static = get_option('static')
 use_tpt_libs = 'no'
-tpt_libs_vtag = 'v20211224205921'
+tpt_libs_vtag = 'v20210822114001'
 if uopt_static == 'system'
 	if copt_platform == 'win'
 		error('no way to find static system libraries on windows')
@@ -67,21 +67,22 @@ else
 endif
 if use_tpt_libs != 'no'
 	nope = false
-	if copt_architecture == 'i686' and not copt_msvc
+	if copt_architecture == 'i686' and (copt_platform != 'win' or copt_compiler != 'msvc')
 		nope = true
 	endif
 	if copt_architecture == 'x86_64' and (copt_platform == 'lin' or copt_platform == 'mac') and copt_compiler != 'gcc'
 		nope = true
 	endif
-	quad_compiler = copt_compiler
-	if copt_platform == 'win' and copt_compiler == 'gcc'
-		quad_compiler = 'mingw'
-		if get_option('b_lto')
-			error('mingw does not like static + lto, you will have to disable this error if you want to proceed')
-		endif
+	if copt_architecture == 'x86_64' and copt_platform == 'win' and copt_compiler == 'gcc'
+		nope = true
 	endif
 	if nope
-		error('no prebuilt @0@-@1@-@2@-@3@ libraries are currently provided'.format(copt_architecture, copt_platform, quad_compiler, use_tpt_libs))
+		error('no prebuilt @0@-@1@-@2@-@3@ libraries are currently provided'.format(copt_architecture, copt_platform, copt_compiler, use_tpt_libs))
+	endif
+	quad_compiler = copt_compiler
+	if use_tpt_libs == 'dynamic' and copt_platform == 'win'
+		# DLLs should be compatible with anything, right?
+		quad_compiler = 'msvc'
 	endif
 	tpt_libs = subproject('tpt-libs-prebuilt-@0@-@1@-@2@-@3@-@4@'.format(copt_architecture, copt_platform, quad_compiler, use_tpt_libs, tpt_libs_vtag))
 endif
@@ -200,15 +201,6 @@ else
 			args_ccomp += [ '-march=native' ]
 		endif
 	endif
-	if copt_platform == 'win'
-		args_ccomp += [
-			'-DUNICODE',
-			'-D_UNICODE',
-		]
-		if uopt_static != 'none'
-			project_link_args += [ '-static', '-static-libgcc', '-static-libstdc++' ]
-		endif
-	endif
 	if not get_option('debug')
 		args_ccomp += [
 			'-ftree-vectorize',
@@ -246,7 +238,7 @@ if copt_platform == 'win'
 	endif
 elif copt_platform == 'lin'
 	if uopt_static != 'none'
-		project_link_args += [ '-static-libgcc', '-static-libstdc++' ]
+		project_link_args = [ '-static-libgcc', '-static-libstdc++' ]
 	endif
 endif
 

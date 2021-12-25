@@ -1,6 +1,5 @@
 #include "UpdateActivity.h"
 
-#include "client/http/Request.h"
 #include "bzip2/bzlib.h"
 
 #include "Config.h"
@@ -11,6 +10,7 @@
 #include "tasks/Task.h"
 #include "tasks/TaskWindow.h"
 
+#include "client/http/Request.h"
 #include "gui/dialogues/ConfirmPrompt.h"
 #include "gui/interface/Engine.h"
 
