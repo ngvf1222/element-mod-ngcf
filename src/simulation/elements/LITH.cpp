@@ -12,15 +12,15 @@ void Element::Element_LITH()
 	MenuSection = SC_ATOM;
 	Enabled = 1;
 
-	Advection = 0.2f;
-	AirDrag = 0.01f * CFDS;
-	AirLoss = 0.96f;
-	Loss = 0.95f;
-	Collision = -0.1f;
-	Gravity = 0.2f;
+	Advection = 0.0f;
+	AirDrag = 0.00f * CFDS;
+	AirLoss = 0.95f;
+	Loss = 0.00f;
+	Collision = 0.0f;
+	Gravity = 0.0f;
 	Diffusion = 0.00f;
-	HotAir = 0.000f	* CFDS;
-	Falldown = 1;
+	HotAir = 0.000f * CFDS;
+	Falldown = 0;
 
 	Flammable = 0;
 	Explosive = 0;
@@ -32,7 +32,7 @@ void Element::Element_LITH()
 	HeatConduct = 70;
 	Description = "Lithium.";
 
-	Properties = TYPE_PART | PROP_LIFE_DEC;
+	Properties = TYPE_SOLID | PROP_LIFE_DEC;
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;
@@ -41,7 +41,7 @@ void Element::Element_LITH()
 	LowTemperature = ITL;
 	LowTemperatureTransition = NT;
 	HighTemperature = 453.65f;
-	HighTemperatureTransition = PT_LAVA;
+	HighTemperatureTransition = PT_LIL;
 
 	Update = &update;
 	Graphics = &graphics;
@@ -155,6 +155,7 @@ static int update(UPDATE_FUNC_ARGS)
 					break;
 
 				case PT_FIRE:
+					parts[ID(neighborData)].ctype = PT_LITH;
 					if (self.temp > 440.f && RNG::Ref().chance(1, 40) && hydrogenationFactor < 6)
 					{
 						burnTimer = 1013;

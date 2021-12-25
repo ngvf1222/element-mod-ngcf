@@ -215,6 +215,9 @@ simulation_elem_ids = [
 	[ 'ALPA',   213 ],
 	[ 'ANEU',   214 ],
 	[ 'APRO',   215 ],
+	[ 'LIL',   216 ],
+	[ 'LIG',   217 ],
+	[ 'LI7',   218 ],
 ]
 
 simulation_elem_src = []

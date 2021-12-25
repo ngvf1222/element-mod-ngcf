@@ -53,8 +53,25 @@ void Element::Element_ANEU()
 
 static int update(UPDATE_FUNC_ARGS)
 {
-	int r, rx, ry;
+	int r, rt, rx, ry;
 	unsigned int pressureFactor = 3 + (int)sim->pv[y / CELL][x / CELL];
+	for (rx = -2; rx <= 2; rx++)
+		for (ry = -2; ry <= 2; ry++)
+			if (BOUNDS_CHECK) {
+				r = pmap[y + ry][x + rx];
+				if (!r)
+					r = sim->photons[y + ry][x + rx];
+				if (!r) continue;
+				rt = TYP(r);
+				switch (rt) {
+				case PT_NEUT:
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					sim->kill_part(i);
+					break;
+				}
+			}
+
 	for (rx = -1; rx < 2; rx++)
 		for (ry = -1; ry < 2; ry++)
 			if (BOUNDS_CHECK)
