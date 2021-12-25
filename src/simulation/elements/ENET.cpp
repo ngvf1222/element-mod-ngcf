@@ -10,7 +10,7 @@ void Element::Element_ENET()
 	Name = "ENET";
 	Colour = PIXPACK(0xEBE95F);
 	MenuVisible = 1;
-	MenuSection = SC_NUCLEAR;
+	MenuSection = SC_PARTICLE;
 	Enabled = 1;
 
 	Advection = 0.0f;

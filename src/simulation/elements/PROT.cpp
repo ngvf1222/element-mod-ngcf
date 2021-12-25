@@ -81,7 +81,8 @@ static int update(UPDATE_FUNC_ARGS)
 		}
 		break;
 	case PT_LITH:
-		parts[i].type = PT_HE3;
+		parts[uID].type = PT_HE3;
+		sim->kill_part(i);
 		break;
 	case PT_LCRY:
 		//Powered LCRY reaction: PROT->PHOT

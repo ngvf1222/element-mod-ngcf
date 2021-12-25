@@ -2399,6 +2399,14 @@ void Simulation::init_can_move()
 				can_move[movingType][destinationType] = 1;
 			if (destinationType == PT_NEUT && (elements[movingType].Properties&PROP_NEUTPENETRATE))
 				can_move[movingType][destinationType] = 0;
+			if (movingType == PT_ANEU && (elements[destinationType].Properties & PROP_NEUTPASS))
+				can_move[movingType][destinationType] = 2;
+			if (movingType == PT_ANEU && (elements[destinationType].Properties & PROP_NEUTABSORB))
+				can_move[movingType][destinationType] = 1;
+			if (movingType == PT_ANEU && (elements[destinationType].Properties & PROP_NEUTPENETRATE))
+				can_move[movingType][destinationType] = 1;
+			if (destinationType == PT_ANEU && (elements[movingType].Properties & PROP_NEUTPENETRATE))
+				can_move[movingType][destinationType] = 0;
 			if ((elements[movingType].Properties&TYPE_ENERGY) && (elements[destinationType].Properties&TYPE_ENERGY))
 				can_move[movingType][destinationType] = 2;
 		}
@@ -2461,12 +2469,18 @@ void Simulation::init_can_move()
 		if (destinationType != PT_DMND && destinationType != PT_INSL && destinationType != PT_VOID && destinationType != PT_PVOD && destinationType != PT_VIBR && destinationType != PT_BVBR && destinationType != PT_PRTI && destinationType != PT_PRTO)
 		{
 			can_move[PT_PROT][destinationType] = 2;
+			can_move[PT_APRO][destinationType] = 2;
 			can_move[PT_GRVT][destinationType] = 2;
+			can_move[PT_ALPA][destinationType] = 2;
 		}
 		if (destinationType != PT_NONE)
 		{
-			can_move[PT_AENT][destinationType] = 2;
 			can_move[PT_ENET][destinationType] = 2;
+			can_move[PT_MNET][destinationType] = 2;
+			can_move[PT_TNET][destinationType] = 2;
+			can_move[PT_AENT][destinationType] = 2;
+			can_move[PT_AMNT][destinationType] = 2;
+			can_move[PT_ATNT][destinationType] = 2;
 		}
 	}
 
@@ -2479,24 +2493,32 @@ void Simulation::init_can_move()
 	can_move[PT_DEST][PT_ROCK] = 0;
 
 	can_move[PT_NEUT][PT_INVIS] = 2;
+	can_move[PT_ANEU][PT_INVIS] = 2;
 	can_move[PT_ELEC][PT_LCRY] = 2;
+	can_move[PT_PRON][PT_LCRY] = 2;
 	can_move[PT_ELEC][PT_EXOT] = 2;
+	can_move[PT_PRON][PT_EXOT] = 2;
 	can_move[PT_ELEC][PT_GLOW] = 2;
+	can_move[PT_PRON][PT_GLOW] = 2;
 	can_move[PT_PHOT][PT_LCRY] = 3; //varies according to LCRY life
 	can_move[PT_PHOT][PT_GPMP] = 3;
 
 	can_move[PT_PHOT][PT_BIZR] = 2;
 	can_move[PT_ELEC][PT_BIZR] = 2;
+	can_move[PT_PRON][PT_BIZR] = 2;
 	can_move[PT_PHOT][PT_BIZRG] = 2;
 	can_move[PT_ELEC][PT_BIZRG] = 2;
+	can_move[PT_PRON][PT_BIZRG] = 2;
 	can_move[PT_PHOT][PT_BIZRS] = 2;
 	can_move[PT_ELEC][PT_BIZRS] = 2;
+	can_move[PT_PRON][PT_BIZRS] = 2;
 	can_move[PT_BIZR][PT_FILT] = 2;
 	can_move[PT_BIZRG][PT_FILT] = 2;
 
 	can_move[PT_ANAR][PT_WHOL] = 1; //WHOL eats ANAR
 	can_move[PT_ANAR][PT_NWHL] = 1;
 	can_move[PT_ELEC][PT_DEUT] = 1;
+	can_move[PT_PRON][PT_DEUT] = 1;
 	can_move[PT_THDR][PT_THDR] = 2;
 	can_move[PT_EMBR][PT_EMBR] = 2;
 	can_move[PT_TRON][PT_SWCH] = 3;
@@ -2751,11 +2773,13 @@ int Simulation::try_move(int i, int x, int y, int nx, int ny)
 			break;
 		}
 		case PT_NEUT:
+		case PT_ANEU:
 			if (TYP(r) == PT_GLAS || TYP(r) == PT_BGLA)
 				if (RNG::Ref().chance(9, 10))
 					create_cherenkov_photon(i);
 			break;
 		case PT_ELEC:
+		case PT_PRON:
 			if (TYP(r) == PT_GLOW)
 			{
 				part_change_type(i, x, y, PT_PHOT);
@@ -2765,6 +2789,10 @@ int Simulation::try_move(int i, int x, int y, int nx, int ny)
 		case PT_PROT:
 			if (TYP(r) == PT_INVIS)
 				part_change_type(i, x, y, PT_NEUT);
+			break;
+		case PT_APRO:
+			if (TYP(r) == PT_INVIS)
+				part_change_type(i, x, y, PT_ANEU);
 			break;
 		case PT_BIZR:
 		case PT_BIZRG:
@@ -2815,6 +2843,14 @@ int Simulation::try_move(int i, int x, int y, int nx, int ny)
 			kill_part(i);
 			return 0;
 		}
+		if (parts[i].type == PT_PRON)
+		{
+			if (parts[ID(r)].life < 6000)
+				parts[ID(r)].life -= 1;
+			parts[ID(r)].temp = 0;
+			kill_part(i);
+			return 0;
+		}
 		break;
 	case PT_VIBR:
 	case PT_BVBR:
@@ -2830,6 +2866,7 @@ int Simulation::try_move(int i, int x, int y, int nx, int ny)
 	switch (parts[i].type)
 	{
 	case PT_NEUT:
+	case PT_ANEU:
 		if (elements[TYP(r)].Properties & PROP_NEUTABSORB)
 		{
 			kill_part(i);

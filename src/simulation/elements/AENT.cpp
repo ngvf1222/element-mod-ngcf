@@ -10,7 +10,7 @@ void Element::Element_AENT()
 	Name = "AENT";
 	Colour = PIXPACK(0x1416A0);
 	MenuVisible = 1;
-	MenuSection = SC_NUCLEAR;
+	MenuSection = SC_PARTICLE;
 	Enabled = 1;
 
 	Advection = 0.0f;

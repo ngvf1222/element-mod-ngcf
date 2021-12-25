@@ -10,7 +10,7 @@ void Element::Element_UPQK()
 	Name = "UPQK";
 	Colour = PIXPACK(0xFF0000);
 	MenuVisible = 1;
-	MenuSection = SC_NUCLEAR;
+	MenuSection = SC_PARTICLE;
 	Enabled = 1;
 
 	Advection = 0.0f;

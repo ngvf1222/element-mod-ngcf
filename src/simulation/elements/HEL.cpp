@@ -25,7 +25,7 @@ void Element::Element_HEL()
 	Meltable = 5;
 	Hardness = 1;
 
-	Weight = 90;
+	Weight = 2;
 
 	DefaultProperties.temp = R_TEMP - 292.0f + 273.15f;
 	HeatConduct = 251;

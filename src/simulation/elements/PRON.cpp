@@ -52,24 +52,66 @@ void Element::Element_PRON()
 
 static int update(UPDATE_FUNC_ARGS)
 {
-	int r, rt, rx, ry, j;
+	int r, rt, rx, ry, nb, rrx, rry;
 	for (rx = -2; rx <= 2; rx++)
 		for (ry = -2; ry <= 2; ry++)
 			if (BOUNDS_CHECK) {
 				r = pmap[y + ry][x + rx];
 				if (!r)
 					r = sim->photons[y + ry][x + rx];
-				if (!r) continue;
+				if (!r)
+					continue;
 				rt = TYP(r);
-				switch (rt) {
+				switch (rt)
+				{
+				case PT_GLAS:
+					for (rrx = -1; rrx <= 1; rrx++)
+						for (rry = -1; rry <= 1; rry++)
+							if (x + rx + rrx >= 0 && y + ry + rry >= 0 && x + rx + rrx < XRES && y + ry + rry < YRES) {
+								nb = sim->create_part(-1, x + rx + rrx, y + ry + rry, PT_EMBR);
+								if (nb != -1) {
+									parts[nb].tmp = 0;
+									parts[nb].life = 50;
+									parts[nb].temp = parts[i].temp * 0.8f;
+									parts[nb].vx = float(RNG::Ref().between(-10, 10));
+									parts[nb].vy = float(RNG::Ref().between(-10, 10));
+								}
+							}
+					sim->kill_part(i);
+					return 1;
+				case PT_LCRY:
+					parts[ID(r)].tmp2 = 0;
+					break;
+				case PT_H2:
+					sim->part_change_type(ID(r), x + rx, y + ry, PT_PROT);
+					sim->kill_part(i);
+					break;
+				case PT_HE:
+					sim->part_change_type(ID(r), x + rx, y + ry, PT_ALPA);
+					sim->kill_part(i);
+					break;
 				case PT_ELEC:
 					sim->create_part(i, x, y, PT_PHOT);
 					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
 					sim->kill_part(i);
 					break;
+				case PT_DEUT:
+					if (parts[ID(r)].life < 6000)
+						parts[ID(r)].life -= 1;
+					parts[ID(r)].temp = 0;
+					sim->kill_part(i);
+					return 1;
+				case PT_EXOT:
+					parts[ID(r)].tmp2 -= 5;
+					parts[ID(r)].life = 1000;
+					break;
+				case PT_SPRK:
+					parts[ID(r)].life = 0;
+					break;
+				case PT_NONE: //seems to speed up ELEC even if it isn't used
+					break;
 				}
 			}
-
 	return 0;
 }
 

@@ -418,6 +418,12 @@ int Element_STKM_run_stickman(playerst *playerp, UPDATE_FUNC_ARGS)
 					else parts[i].life = int(parts[i].life * 0.9f);
 					sim->kill_part(ID(r));
 				}
+				if (TYP(r) == PT_ALPA)
+				{
+					if (parts[i].life <= 100) parts[i].life -= (102 - parts[i].life) / 2;
+					else parts[i].life = int(parts[i].life * 0.9f);
+					sim->kill_part(ID(r));
+				}
 				if (sim->bmap[(ry+y)/CELL][(rx+x)/CELL]==WL_FAN)
 					playerp->fan = true;
 				else if (sim->bmap[(ry+y)/CELL][(rx+x)/CELL]==WL_EHOLE)

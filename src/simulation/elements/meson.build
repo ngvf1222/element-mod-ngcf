@@ -201,9 +201,20 @@ simulation_elem_ids = [
 	[ 'DNQK',   199 ],
 	[ 'HEL',   200 ],
 	[ 'HES',   201 ],
-	[ 'ENET',   202 ],
-	[ 'AENT',   203 ],
-	[ 'PRON',   204 ],
+	[ 'CHQK',   202 ],
+	[ 'STQK',   203 ],
+	[ 'TPQK',   204 ],
+	[ 'BTQK',   205 ],
+	[ 'ENET',   206 ],
+	[ 'MNET',   207 ],
+	[ 'TNET',   208 ],
+	[ 'AENT',   209 ],
+	[ 'AMNT',   210 ],
+	[ 'ATNT',   211 ],
+	[ 'PRON',   212 ],
+	[ 'ALPA',   213 ],
+	[ 'ANEU',   214 ],
+	[ 'APRO',   215 ],
 ]
 
 simulation_elem_src = []

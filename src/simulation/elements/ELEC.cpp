@@ -101,6 +101,10 @@ static int update(UPDATE_FUNC_ARGS)
 					parts[ID(r)].ctype = 0;
 					sim->kill_part(i);
 					break;
+				case PT_ALPA:
+					sim->part_change_type(ID(r), x + rx, y + ry, PT_HE);
+					sim->kill_part(i);
+					break;
 				case PT_PRON:
 					sim->create_part(i, x, y, PT_PHOT);
 					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);

@@ -80,8 +80,15 @@ static int update(UPDATE_FUNC_ARGS)
 						sim->part_change_type(ID(r), x + rx, y + ry, PT_T);
 					break;
 				case PT_LITH:
-					if (RNG::Ref().chance(1, 1))
+					if (RNG::Ref().chance(1, 2))
 						sim->part_change_type(ID(r), x + rx, y + ry, PT_T);
+					else
+						sim->part_change_type(ID(r), x + rx, y + ry, PT_HE);
+					break;
+				case PT_ANEU:
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->part_change_type(ID(r), x + rx, y + ry, PT_PHOT);
+					sim->kill_part(i);
 					break;
 				case PT_PLUT:
 					if (RNG::Ref().chance(pressureFactor, 1000))
