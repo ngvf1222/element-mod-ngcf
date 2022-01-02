@@ -68,7 +68,6 @@ static int update(UPDATE_FUNC_ARGS)
 				case PT_ANEU:
 					sim->create_part(i, x, y, PT_PHOT);
 					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
-					sim->kill_part(i);
 					break;
 				}
 			}
@@ -105,6 +104,10 @@ static int update(UPDATE_FUNC_ARGS)
 				case PT_ANEU:
 					sim->create_part(i, x, y, PT_PHOT);
 					sim->part_change_type(ID(r), x + rx, y + ry, PT_PHOT);
+					sim->kill_part(i);
+					break;
+				case PT_HE3:
+					sim->part_change_type(ID(r), x + rx, y + ry, PT_HE);
 					sim->kill_part(i);
 					break;
 				case PT_PLUT:

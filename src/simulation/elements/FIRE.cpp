@@ -368,6 +368,13 @@ static int graphics(GRAPHICS_FUNC_ARGS)
 		*colb = (unsigned char)ren->flm_data[caddress + 1];
 	}
 
+	if (cpart->ctype == PT_BE)
+	{
+		*colr = 255;
+		*colg = 255;
+		*colb = 240;
+	}
+
 	*firea = 255;
 	*firer = *colr;
 	*fireg = *colg;

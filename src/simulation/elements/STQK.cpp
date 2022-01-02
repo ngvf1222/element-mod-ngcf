@@ -1,5 +1,6 @@
 #include "simulation/ElementCommon.h"
 
+static int update(UPDATE_FUNC_ARGS);
 static int graphics(GRAPHICS_FUNC_ARGS);
 static void create(ELEMENT_CREATE_FUNC_ARGS);
 
@@ -43,10 +44,35 @@ void Element::Element_STQK()
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
 
+	Update = &update;
 	Graphics = &graphics;
 	Create = &create;
 }
 
+static int update(UPDATE_FUNC_ARGS)
+{
+	int r, rt, rx, ry;
+	for (rx = -2; rx <= 2; rx++)
+		for (ry = -2; ry <= 2; ry++)
+			if (BOUNDS_CHECK) {
+				r = pmap[y + ry][x + rx];
+				if (!r)
+					r = sim->photons[y + ry][x + rx];
+				rt = TYP(r);
+				if (RNG::Ref().chance(1, 1000))
+				{
+					sim->create_part(-1, x + rx, y + ry, PT_UPQK);
+					sim->kill_part(i);
+				}
+				switch (rt) {
+				case PT_ASTQ:
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					break;
+				}
+			}
+	return 0;
+}
 
 static int graphics(GRAPHICS_FUNC_ARGS)
 {

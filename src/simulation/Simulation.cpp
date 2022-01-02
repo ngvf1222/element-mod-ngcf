@@ -2472,6 +2472,7 @@ void Simulation::init_can_move()
 			can_move[PT_APRO][destinationType] = 2;
 			can_move[PT_GRVT][destinationType] = 2;
 			can_move[PT_ALPA][destinationType] = 2;
+			can_move[PT_AALP][destinationType] = 2;
 		}
 		if (destinationType != PT_NONE)
 		{

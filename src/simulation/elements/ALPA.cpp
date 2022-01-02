@@ -51,15 +51,29 @@ void Element::Element_ALPA()
 
 static int update(UPDATE_FUNC_ARGS)
 {
-	int r, rt, rx, ry, j;
+	int r, rt, rx, ry;
 	for (rx = -2; rx <= 2; rx++)
 		for (ry = -2; ry <= 2; ry++)
 			if (BOUNDS_CHECK) {
 				r = pmap[y + ry][x + rx];
+				if (!r)
+					r = sim->photons[y + ry][x + rx];
+				if (!r) continue;
+				rt = TYP(r);
 				if (TYP(r) != PT_ALPA && TYP(r) != PT_NONE)
 				{
 					parts[i].vx *= 0.95f;
 					parts[i].vy *= 0.95f;
+				}
+				switch (rt) {
+				case PT_AALP:
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					break;
+				case PT_ANHE:
+					sim->part_change_type(ID(r), x, y, PT_PRON);
+					sim->kill_part(i);
+					break;
 				}
 			}
 	return 0;
@@ -79,7 +93,7 @@ static int graphics(GRAPHICS_FUNC_ARGS)
 static void create(ELEMENT_CREATE_FUNC_ARGS)
 {
 	float a = RNG::Ref().between(0, 359) * 3.14159f / 180.0f;
-	sim->parts[i].life = 300;
-	sim->parts[i].vx = 1.2f * cosf(a);
-	sim->parts[i].vy = 1.2f * sinf(a);
+	sim->parts[i].life = 200;
+	sim->parts[i].vx = 1.5f * cosf(a);
+	sim->parts[i].vy = 1.5f * sinf(a);
 }

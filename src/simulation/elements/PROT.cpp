@@ -67,6 +67,9 @@ static int update(UPDATE_FUNC_ARGS)
 				case PT_APRO:
 					sim->create_part(i, x, y, PT_PHOT);
 					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					break;
+				case PT_ANTH:
+					sim->part_change_type(ID(r), x + rx, y + ry, PT_PRON);
 					sim->kill_part(i);
 					break;
 				}

@@ -26,7 +26,7 @@ void Element::Element_LI7()
 
 	Weight = 100;
 
-	HeatConduct = 251;
+	HeatConduct = 70;
 	Description = "Lithium-7.";
 
 	Properties = TYPE_SOLID;

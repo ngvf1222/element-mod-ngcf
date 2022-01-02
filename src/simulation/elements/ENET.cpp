@@ -66,7 +66,6 @@ static int update(UPDATE_FUNC_ARGS)
 				case PT_AENT:
 					sim->create_part(i, x, y, PT_PHOT);
 					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
-					sim->kill_part(i);
 					break;
 				}
 			}

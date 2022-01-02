@@ -130,5 +130,20 @@ static int update(UPDATE_FUNC_ARGS)
 			return 1;
 		}
 	}
+	for (rx = -1; rx < 2; rx++)
+		for (ry = -1; ry < 2; ry++)
+			if (BOUNDS_CHECK) {
+				r = pmap[y + ry][x + rx];
+				if (!r)
+					r = sim->photons[y + ry][x + rx];
+				if (!r) continue;
+				rt = TYP(r);
+				switch (rt) {
+				case PT_ANTH:
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					break;
+				}
+			}
 	return 0;
 }

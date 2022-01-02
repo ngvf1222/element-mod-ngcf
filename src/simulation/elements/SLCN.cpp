@@ -7,21 +7,21 @@ static void create(ELEMENT_CREATE_FUNC_ARGS);
 void Element::Element_SLCN()
 {
 	Identifier = "DEFAULT_PT_SLCN";
-	Name = "SLCN";
+	Name = "Si";
 	Colour = PIXPACK(0xBCCDDF);
 	MenuVisible = 1;
-	MenuSection = SC_POWDERS;
+	MenuSection = SC_ATOM;
 	Enabled = 1;
 
-	Advection = 0.4f;
-	AirDrag = 0.04f * CFDS;
-	AirLoss = 0.94f;
-	Loss = 0.95f;
-	Collision = -0.1f;
-	Gravity = 0.27f;
+	Advection = 0.0f;
+	AirDrag = 0.00f * CFDS;
+	AirLoss = 0.90f;
+	Loss = 0.00f;
+	Collision = 0.0f;
+	Gravity = 0.0f;
 	Diffusion = 0.00f;
-	HotAir = 0.000f	* CFDS;
-	Falldown = 1;
+	HotAir = 0.000f * CFDS;
+	Falldown = 0;
 
 	Flammable = 0;
 	Explosive = 0;
@@ -31,9 +31,9 @@ void Element::Element_SLCN()
 	Weight = 90;
 
 	HeatConduct = 100;
-	Description = "Powdered Silicon. A key ingredient in producing multiple materials.";
+	Description = "Silicon.";
 
-	Properties = TYPE_PART | PROP_CONDUCTS | PROP_HOT_GLOW | PROP_LIFE_DEC;
+	Properties = TYPE_SOLID | PROP_CONDUCTS | PROP_HOT_GLOW | PROP_LIFE_DEC;
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;

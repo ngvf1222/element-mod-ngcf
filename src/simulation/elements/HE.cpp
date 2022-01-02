@@ -1,5 +1,7 @@
 #include "simulation/ElementCommon.h"
 
+static int update(UPDATE_FUNC_ARGS);
+
 void Element::Element_HE()
 {
 	Identifier = "DEFAULT_PT_HE";
@@ -39,4 +41,27 @@ void Element::Element_HE()
 	LowTemperatureTransition = PT_HEL;
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
+
+	Update = &update;
+}
+
+static int update(UPDATE_FUNC_ARGS)
+{
+	int r, rt, rx, ry;
+	for (rx = -1; rx < 2; rx++)
+		for (ry = -1; ry < 2; ry++)
+			if (BOUNDS_CHECK) {
+				r = pmap[y + ry][x + rx];
+				if (!r)
+					r = sim->photons[y + ry][x + rx];
+				if (!r) continue;
+				rt = TYP(r);
+				switch (rt) {
+				case PT_ANHE:
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					break;
+				}
+			}
+	return 0;
 }

@@ -90,10 +90,13 @@ static int update(UPDATE_FUNC_ARGS)
 					sim->part_change_type(ID(r), x + rx, y + ry, PT_ALPA);
 					sim->kill_part(i);
 					break;
+				case PT_AALP:
+					sim->part_change_type(ID(r), x + rx, y + ry, PT_ANHE);
+					sim->kill_part(i);
+					break;
 				case PT_ELEC:
 					sim->create_part(i, x, y, PT_PHOT);
 					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
-					sim->kill_part(i);
 					break;
 				case PT_DEUT:
 					if (parts[ID(r)].life < 6000)

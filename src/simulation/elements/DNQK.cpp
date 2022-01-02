@@ -51,7 +51,7 @@ void Element::Element_DNQK()
 
 static int update(UPDATE_FUNC_ARGS)
 {
-	int r, rt, rx, ry;
+	int r, rt, rx, ry, n1, n2;
 	for (rx = -2; rx <= 2; rx++)
 		for (ry = -2; ry <= 2; ry++)
 			if (BOUNDS_CHECK) {
@@ -68,6 +68,17 @@ static int update(UPDATE_FUNC_ARGS)
 						parts[ID(r)].tmp = 0;
 						sim->kill_part(i);
 					}
+					break;
+				case PT_ADNQ:
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+					break;
+				case PT_AUPQ:
+					n1 = sim->create_part(i, x + rx, y + ry, PT_PION);
+					n2 = sim->create_part(ID(r), x + rx, y + ry, PT_PION);
+					parts[n1].tmp = 2;
+					parts[n2].tmp = 2;
+					sim->kill_part(i);
 					break;
 				}
 			}

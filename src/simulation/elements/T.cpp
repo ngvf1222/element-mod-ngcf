@@ -91,7 +91,6 @@ static int update(UPDATE_FUNC_ARGS)
 				}
 				if (RNG::Ref().chance(1, 25000))
 				{
-					int j;
 					sim->create_part(-1, x + 1, y, PT_ELEC);
 					sim->create_part(-1, x - 1, y, PT_AENT);
 					sim->part_change_type(i, x, y, PT_HE3);

@@ -27,12 +27,12 @@ void Element::Element_LITH()
 	Meltable = 0;
 	Hardness = 15;
 
-	Weight = 17;
+	Weight = 100;
 
 	HeatConduct = 70;
 	Description = "Lithium.";
 
-	Properties = TYPE_SOLID | PROP_LIFE_DEC;
+	Properties = TYPE_SOLID | PROP_LIFE_DEC ;
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;
@@ -172,6 +172,8 @@ static int update(UPDATE_FUNC_ARGS)
 						return 0;
 					}						
 					break;
+				case PT_NONE:
+					parts[i].pavg[0] = 0;
 				}
 			}
 		}

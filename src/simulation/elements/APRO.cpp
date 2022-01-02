@@ -80,7 +80,6 @@ static int update(UPDATE_FUNC_ARGS)
 	case PT_PROT:
 		sim->create_part(i, x, y, PT_PHOT);
 		sim->create_part(ID(utype), x + 1, y + 1, PT_PHOT);
-		sim->kill_part(i);
 		break;
 	case PT_HE3:
 		parts[uID].type = PT_LITH;
@@ -94,6 +93,10 @@ static int update(UPDATE_FUNC_ARGS)
 			parts[i].life *= 2;
 			parts[i].ctype = 0x3FFFFFFF;
 		}
+		break;
+	case PT_H2:
+		sim->part_change_type(ID(r), x + rx, y + ry, PT_ELEC);
+		sim->kill_part(i);
 		break;
 	case PT_WIFI:
 		float change;

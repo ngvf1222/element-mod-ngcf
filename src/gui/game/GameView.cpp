@@ -2171,6 +2171,15 @@ void GameView::OnDraw()
 					else
 						sampleInfo << " (unknown mode)";
 				}
+				else if (type == PT_PION)
+				{
+					sampleInfo << c->ElementResolve(type, ctype);
+					String filtModes[] = { "Neutral", "+", "-" };
+					if (sample.particle.tmp >= 0 && sample.particle.tmp <= 2)
+						sampleInfo << " (" << filtModes[sample.particle.tmp] << ")";
+					else
+						sampleInfo << " (unknown mode)";
+				}
 				else
 				{
 					sampleInfo << c->ElementResolve(type, ctype);
