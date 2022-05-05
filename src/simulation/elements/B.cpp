@@ -1,5 +1,7 @@
 #include "simulation/ElementCommon.h"
 
+static int update(UPDATE_FUNC_ARGS);
+
 void Element::Element_B()
 {
 	Identifier = "DEFAULT_PT_B";
@@ -29,7 +31,7 @@ void Element::Element_B()
 	HeatConduct = 251;
 	Description = "Boron.";
 
-	Properties = TYPE_SOLID;
+	Properties = TYPE_SOLID | PROP_NEUTABSORB | PROP_HOT_GLOW;
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;
@@ -37,7 +39,31 @@ void Element::Element_B()
 	HighPressureTransition = NT;
 	LowTemperature = ITL;
 	LowTemperatureTransition = NT;
-	HighTemperature = ITH;
-	HighTemperatureTransition = NT;
+	HighTemperature = 2349.00f;
+	HighTemperatureTransition = PT_BL;
 
+	Update = &update;
+}
+
+static int update(UPDATE_FUNC_ARGS)
+{
+	Particle& self = parts[i];
+
+	for (int rx = -2; rx <= 2; ++rx)
+	{
+		for (int ry = -2; ry <= 2; ++ry)
+		{
+			if (BOUNDS_CHECK && (rx || ry))
+			{
+				int neighborData = pmap[y + ry][x + rx];
+				switch (TYP(neighborData))
+				{
+				case PT_FIRE:
+					parts[ID(neighborData)].ctype = PT_B;
+					break;
+				}
+			}
+		}
+	}
+	return 0;
 }

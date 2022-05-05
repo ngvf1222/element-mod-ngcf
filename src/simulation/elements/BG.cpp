@@ -1,10 +1,10 @@
 #include "simulation/ElementCommon.h"
 
-void Element::Element_BEG()
+void Element::Element_BG()
 {
-	Identifier = "DEFAULT_PT_BEG";
-	Name = "Be-g";
-	Colour = PIXPACK(0xFFEAE2);
+	Identifier = "DEFAULT_PT_BG";
+	Name = "B-g";
+	Colour = PIXPACK(0xD92E00);
 	MenuVisible = 0;
 	MenuSection = SC_ATOM;
 	Enabled = 1;
@@ -26,18 +26,18 @@ void Element::Element_BEG()
 
 	Weight = 90;
 
-	DefaultProperties.temp = R_TEMP + 3000.15f + 273.15f;
+	DefaultProperties.temp = R_TEMP + 4500.15f + 273.15f;
 	HeatConduct = 251;
-	Description = "Gas Beryllium.";
+	Description = "Gas Boron.";
 
-	Properties = TYPE_GAS|PROP_CONDUCTS|PROP_LIFE_DEC|PROP_DEADLY;
+	Properties = TYPE_GAS;
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;
 	HighPressure = IPH;
 	HighPressureTransition = NT;
-	LowTemperature = 2742.00f;
-	LowTemperatureTransition = PT_BEL;
+	LowTemperature = 4200.00f;
+	LowTemperatureTransition = PT_BG;
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
 }

@@ -363,9 +363,9 @@ static int graphics(GRAPHICS_FUNC_ARGS)
 
 	if (cpart->ctype == PT_LITH)
 	{
-		*colr = (unsigned char)ren->flm_data[caddress];
-		*colg = (unsigned char)ren->flm_data[caddress + 1];
-		*colb = (unsigned char)ren->flm_data[caddress + 1];
+		*colr = 255;
+		*colg = 0;
+		*colb = 100;
 	}
 
 	if (cpart->ctype == PT_BE)
@@ -373,6 +373,20 @@ static int graphics(GRAPHICS_FUNC_ARGS)
 		*colr = 255;
 		*colg = 255;
 		*colb = 240;
+	}
+
+	if (cpart->ctype == PT_B)
+	{
+		*colr = 0;
+		*colg = 255;
+		*colb = 170;
+	}
+
+	if (cpart->ctype == PT_C)
+	{
+		*colr = 255;
+		*colg = 180;
+		*colb = 60;
 	}
 
 	*firea = 255;

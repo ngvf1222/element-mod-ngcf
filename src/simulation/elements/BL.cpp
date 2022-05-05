@@ -1,10 +1,10 @@
 #include "simulation/ElementCommon.h"
 
-void Element::Element_BEL()
+void Element::Element_BL()
 {
-	Identifier = "DEFAULT_PT_BEL";
-	Name = "Be-l";
-	Colour = PIXPACK(0xFFD9CA);
+	Identifier = "DEFAULT_PT_BL";
+	Name = "B-l";
+	Colour = PIXPACK(0xB92700);
 	MenuVisible = 0;
 	MenuSection = SC_ATOM;
 	Enabled = 1;
@@ -26,18 +26,18 @@ void Element::Element_BEL()
 
 	Weight = 30;
 
-	DefaultProperties.temp = R_TEMP + 3000.0f + 273.15f;
-	HeatConduct = 251;
-	Description = "Liquid Beryllium.";
+	DefaultProperties.temp = R_TEMP + 2500.0f + 273.15f;
+	HeatConduct = 30;
+	Description = "Liquid Boron.";
 
-	Properties = TYPE_LIQUID | PROP_DEADLY;
+	Properties = TYPE_LIQUID | PROP_NEUTABSORB;
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;
 	HighPressure = IPH;
 	HighPressureTransition = NT;
-	LowTemperature = 1560.00f;
-	LowTemperatureTransition = PT_BE;
-	HighTemperature = 2742.00f;
-	HighTemperatureTransition = PT_BEG;
+	LowTemperature = 2349.00f;
+	LowTemperatureTransition = PT_B;
+	HighTemperature = 4200.00f;
+	HighTemperatureTransition = PT_BG;
 }

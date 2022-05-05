@@ -100,7 +100,7 @@ static int graphics(GRAPHICS_FUNC_ARGS)
 static void create(ELEMENT_CREATE_FUNC_ARGS)
 {
 	float a = RNG::Ref().between(0, 359) * 3.14159f / 180.0f;
-	sim->parts[i].life = 80;
+	sim->parts[i].life = 100;
 	sim->parts[i].vx = 10.0f * cosf(a);
 	sim->parts[i].vy = 10.0f * sinf(a);
 }

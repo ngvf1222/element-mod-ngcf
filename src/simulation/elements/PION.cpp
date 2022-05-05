@@ -52,7 +52,7 @@ void Element::Element_PION()
 static int update(UPDATE_FUNC_ARGS)
 {
 
-	int r, rt, rx, ry;
+	int r, rx, ry;
 	for (rx = -2; rx <= 2; rx++)
 		for (ry = -2; ry <= 2; ry++)
 			if (BOUNDS_CHECK) {
@@ -60,13 +60,55 @@ static int update(UPDATE_FUNC_ARGS)
 				if (!r)
 					r = sim->photons[y + ry][x + rx];
 				if (!r) continue;
-				rt = TYP(r);
-				switch (rt) {
-				case PT_ATON:
+				if (parts[i].tmp == 1 && parts[ID(r)].tmp == 2)
+				{
 					sim->create_part(i, x, y, PT_PHOT);
 					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
-					sim->kill_part(i);
-					break;
+				}
+				if (parts[i].tmp == 2 && parts[ID(r)].tmp == 1)
+				{
+					sim->create_part(i, x, y, PT_PHOT);
+					sim->create_part(ID(r), x + rx, y + ry, PT_PHOT);
+				}
+				if (parts[i].tmp == 0)
+				{
+					if (parts[i].life == 1)
+					{
+						sim->create_part(-1, x, y, PT_ELEC);
+						sim->create_part(-1, x, y, PT_PRON);
+					}
+				}
+				if (parts[i].tmp == 1)
+				{
+					if (parts[i].life == 1)
+					{
+						if (RNG::Ref().chance(1, 5000))
+						{
+							sim->create_part(-1, x, y, PT_PRON);
+							sim->create_part(-1, x, y, PT_ENET);
+						}
+						else
+						{
+							sim->create_part(-1, x, y, PT_AMON);
+							sim->create_part(-1, x, y, PT_MNET);
+						}
+					}
+				}
+				if (parts[i].tmp == 2)
+				{
+					if (parts[i].life == 1)
+					{
+						if (RNG::Ref().chance(1, 5000))
+						{
+							sim->create_part(-1, x, y, PT_ELEC);
+							sim->create_part(-1, x, y, PT_AENT);
+						}
+						else
+						{
+							sim->create_part(-1, x, y, PT_MUON);
+							sim->create_part(-1, x, y, PT_AMNT);
+						}
+					}
 				}
 			}
 	return 0;

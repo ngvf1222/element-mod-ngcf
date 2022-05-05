@@ -1,10 +1,10 @@
 #include "simulation/ElementCommon.h"
 
-void Element::Element_BEG()
+void Element::Element_N15()
 {
-	Identifier = "DEFAULT_PT_BEG";
-	Name = "Be-g";
-	Colour = PIXPACK(0xFFEAE2);
+	Identifier = "DEFAULT_PT_N13";
+	Name = "N-15";
+	Colour = PIXPACK(0x4D80E7);
 	MenuVisible = 0;
 	MenuSection = SC_ATOM;
 	Enabled = 1;
@@ -21,23 +21,23 @@ void Element::Element_BEG()
 
 	Flammable = 0;
 	Explosive = 0;
-	Meltable = 5;
-	Hardness = 1;
+	Meltable = 0;
+	Hardness = 0;
 
-	Weight = 90;
+	Weight = 100;
 
-	DefaultProperties.temp = R_TEMP + 3000.15f + 273.15f;
 	HeatConduct = 251;
-	Description = "Gas Beryllium.";
+	Description = "Nitrogen-15.";
 
-	Properties = TYPE_GAS|PROP_CONDUCTS|PROP_LIFE_DEC|PROP_DEADLY;
+	Properties = TYPE_GAS;
 
 	LowPressure = IPL;
 	LowPressureTransition = NT;
 	HighPressure = IPH;
 	HighPressureTransition = NT;
-	LowTemperature = 2742.00f;
-	LowTemperatureTransition = PT_BEL;
+	LowTemperature = ITL;
+	LowTemperatureTransition = NT;
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
+
 }
