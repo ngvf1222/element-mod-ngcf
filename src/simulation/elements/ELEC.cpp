@@ -96,7 +96,9 @@ static int update(UPDATE_FUNC_ARGS)
 					if (parts[ID(r)].tmp2 & 0x1)
 						break;
 				case PT_NEUT:
-					sim->part_change_type(ID(r), x+rx, y+ry, PT_H2);
+					sim->part_change_type(ID(r), x+rx, y+ry, PT_H2);//¹èÅ¸ºØ±«
+					sim->create_part(-1, x + RNG::Ref().between(-1, 1), y + RNG::Ref().between(-1, 1), PT_ELEC);
+					sim->create_part(-1, x + RNG::Ref().between(-1, 1), y + RNG::Ref().between(-1, 1), PT_AENT);
 					parts[ID(r)].life = 0;
 					parts[ID(r)].ctype = 0;
 					sim->kill_part(i);

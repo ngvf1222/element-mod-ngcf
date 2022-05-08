@@ -177,6 +177,8 @@ static int update(UPDATE_FUNC_ARGS)
 		newID = sim->create_part(-1, x + RNG::Ref().between(-1, 1), y + RNG::Ref().between(-1, 1), element);
 		if (newID >= 0)
 			parts[newID].temp = restrict_flt(100.0f*parts[i].tmp, MIN_TEMP, MAX_TEMP);
+		sim->create_part(-1, x + RNG::Ref().between(-1, 1), y + RNG::Ref().between(-1, 1), PT_PRON);//¹èÅ¸ºØ±«
+		sim->create_part(-1, x + RNG::Ref().between(-1, 1), y + RNG::Ref().between(-1, 1), PT_ENET);
 		sim->kill_part(i);
 		return 1;
 	}

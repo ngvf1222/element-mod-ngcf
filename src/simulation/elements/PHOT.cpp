@@ -112,6 +112,12 @@ static int update(UPDATE_FUNC_ARGS)
 					parts[i].vx += ((float)RNG::Ref().between(-500, 500))/1000.0f;
 					parts[i].vy += ((float)RNG::Ref().between(-500, 500))/1000.0f;
 				}
+				else if (TYP(r) == PT_PHOT && parts[i].temp>=1193978629 && parts[ID(r)].temp >= 1193978629)
+				{//                                          이건 계산된거임
+					sim->part_change_type(ID(r), x + rx, y + ry, PT_ELEC);
+					sim->part_change_type(-1, x - rx, y - ry, PT_PRON);
+					sim->kill_part(i);//광자-광자쌍생성
+				}
 			}
 	return 0;
 }
