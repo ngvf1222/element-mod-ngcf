@@ -74,6 +74,11 @@ static int update(UPDATE_FUNC_ARGS)
 					sim->part_change_type(ID(r), x, y, PT_PRON);
 					sim->kill_part(i);
 					break;
+				case PT_BE:
+					if ((-2 < rx && rx < 2) && (-2 < ry && ry < 2) && TYP(pmap[y - 1][x - 1]) != PT_C && TYP(pmap[y - 1][x + 1]) != PT_C && TYP(pmap[y + 1][x - 1]) != PT_C && TYP(pmap[y + 1][x + 1]) != PT_C && TYP(pmap[y][x - 1]) != PT_C && TYP(pmap[y][x + 1]) != PT_C && TYP(pmap[y - 1][x]) != PT_C && TYP(pmap[y + 1][x]) != PT_C) {
+						sim->create_part(-3, x + rx, y + ry, PT_C);
+						sim->create_part(-3, x, y, PT_NEUT);
+					}
 				}
 			}
 	return 0;
