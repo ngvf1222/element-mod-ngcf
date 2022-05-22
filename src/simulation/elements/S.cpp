@@ -1,5 +1,5 @@
 #include "simulation/ElementCommon.h"
-static int update(UPDATE_FUNC_ARGS);
+
 void Element::Element_S()
 {
 	Identifier = "DEFAULT_PT_S";
@@ -19,7 +19,7 @@ void Element::Element_S()
 	HotAir = 0.000f	* CFDS;
 	Falldown = 0;
 
-	Flammable = 1;
+	Flammable = 0;
 	Explosive = 0;
 	Meltable = 0;
 	Hardness = 1;
@@ -39,31 +39,5 @@ void Element::Element_S()
 	LowTemperatureTransition = NT;
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
-	Update = &update;
-}
-static int update(UPDATE_FUNC_ARGS)
-{
-	Particle& self = parts[i];
 
-	for (int rx = -2; rx <= 2; ++rx)
-	{
-		for (int ry = -2; ry <= 2; ++ry)
-		{
-			if (BOUNDS_CHECK && (rx || ry))
-			{
-				int neighborData = pmap[y + ry][x + rx];
-				switch (TYP(neighborData))
-				{
-				case PT_FIRE:
-					parts[ID(neighborData)].ctype = PT_S;
-					if (RNG::Ref().between(1, 1000) == 1) {
-						sim->part_change_type(i, x, y, PT_FIRE);
-						parts[i].ctype = PT_S;
-					}
-					break;
-				}
-			}
-		}
-	}
-	return 0;
 }

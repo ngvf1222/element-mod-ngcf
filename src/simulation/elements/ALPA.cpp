@@ -79,21 +79,6 @@ static int update(UPDATE_FUNC_ARGS)
 						sim->create_part(-3, x + rx, y + ry, PT_C);
 						sim->create_part(-3, x, y, PT_NEUT);
 					}
-				case PT_N:
-					if ((-2 < rx && rx < 2) && (-2 < ry && ry < 2)) {
-						sim->create_part(-3, x + rx, y + ry, PT_F);
-						sim->kill_part(i);
-					}
-				case PT_F:
-					if ((-2 < rx && rx < 2) && (-2 < ry && ry < 2)) {
-						sim->create_part(-3, x + rx, y + ry, PT_Na);
-						sim->kill_part(i);
-					}
-				case PT_Na:
-					if ((-2 < rx && rx < 2) && (-2 < ry && ry < 2)){
-						sim->create_part(-3, x + rx, y + ry, PT_Al26);
-						sim->kill_part(i);
-					}
 				}
 			}
 	return 0;

@@ -389,13 +389,6 @@ static int graphics(GRAPHICS_FUNC_ARGS)
 		*colb = 60;
 	}
 
-	if (cpart->ctype == PT_S)
-	{
-		*colr = 195;
-		*colg = 248;
-		*colb = 232;
-	}
-
 	*firea = 255;
 	*firer = *colr;
 	*fireg = *colg;

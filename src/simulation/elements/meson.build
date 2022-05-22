@@ -265,8 +265,6 @@ simulation_elem_ids = [
 	[ 'C14',   263 ],
 	[ 'N13',   264 ],
 	[ 'N15',   265 ],
-	[ 'Al26',   266 ],
-	[ 'Mg26',   267 ],
 ]
 
 simulation_elem_src = []
