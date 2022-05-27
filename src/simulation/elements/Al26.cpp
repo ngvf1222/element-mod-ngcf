@@ -1,11 +1,11 @@
 #include "simulation/ElementCommon.h"
 static int update(UPDATE_FUNC_ARGS);
-void Element::Element_S()
+void Element::Element_Al26()
 {
-	Identifier = "DEFAULT_PT_S";
-	Name = "S";
-	Colour = PIXPACK(0xFFB600);
-	MenuVisible = 1;
+	Identifier = "DEFAULT_PT_Al26";
+	Name = "Al26";
+	Colour = PIXPACK(0xE1E1E1);
+	MenuVisible = 0;
 	MenuSection = SC_ATOM;
 	Enabled = 1;
 
@@ -19,7 +19,7 @@ void Element::Element_S()
 	HotAir = 0.000f	* CFDS;
 	Falldown = 0;
 
-	Flammable = 1;
+	Flammable = 0;
 	Explosive = 0;
 	Meltable = 0;
 	Hardness = 1;
@@ -27,7 +27,7 @@ void Element::Element_S()
 	Weight = 100;
 
 	HeatConduct = 251;
-	Description = "Sulfur.";
+	Description = "Aluminum-26.";
 
 	Properties = TYPE_SOLID;
 
@@ -39,31 +39,14 @@ void Element::Element_S()
 	LowTemperatureTransition = NT;
 	HighTemperature = ITH;
 	HighTemperatureTransition = NT;
-	Update = &update;
+
 }
 static int update(UPDATE_FUNC_ARGS)
 {
-	Particle& self = parts[i];
-
-	for (int rx = -2; rx <= 2; ++rx)
+	if (RNG::Ref().between(1, 720000) == 1 && RNG::Ref().between(1, 365) == 1 && RNG::Ref().between(1, 24) == 1 && RNG::Ref().between(1, 60) == 1 && RNG::Ref().between(1, 60) == 1 && RNG::Ref().between(1, 60) == 1)
 	{
-		for (int ry = -2; ry <= 2; ++ry)
-		{
-			if (BOUNDS_CHECK && (rx || ry))
-			{
-				int neighborData = pmap[y + ry][x + rx];
-				switch (TYP(neighborData))
-				{
-				case PT_FIRE:
-					parts[ID(neighborData)].ctype = PT_S;
-					if (RNG::Ref().between(1, 1000) == 1) {
-						sim->part_change_type(i, x, y, PT_FIRE);
-						parts[i].ctype = PT_S;
-					}
-					break;
-				}
-			}
-		}
+		sim->part_change_type(i, x, y, PT_Mg26);
+		sim->create_part(-1, x + RNG::Ref().between(-1, 1), y + RNG::Ref().between(-1, 1), PT_PRON);//¹èÅ¸ºØ±«
+		sim->create_part(-1, x + RNG::Ref().between(-1, 1), y + RNG::Ref().between(-1, 1), PT_ENET);
 	}
-	return 0;
 }
